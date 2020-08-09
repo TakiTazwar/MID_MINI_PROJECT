@@ -23,11 +23,11 @@ if(isset($_POST['submit']))
 		else
 		{
 
-			$conn = mysqli_connect('127.0.0.1', 'root', '', 'foodDeliverManagementSystem');
+			$conn = mysqli_connect('127.0.0.1', 'root', '', 'mini_database');
 			if ($_POST['password'] == $_POST['confirmpassword'])
 			{
 				# code...
-				$sql1="INSERT INTO registration (id, name, password, email, usertype) VALUES ('".$_POST['id']."', '".$_POST['name']."', '".$_POST['password']."', '".$_POST['email']."', '".$_POST['userType']."')";
+				$sql1="INSERT INTO users (id, name, password, email, usertype) VALUES ('".$_POST['id']."', '".$_POST['name']."', '".$_POST['password']."', '".$_POST['email']."', '".$_POST['userType']."')";
 				mysqli_query($conn,$sql1);
 				echo "done";
 				header('location: login.html');
