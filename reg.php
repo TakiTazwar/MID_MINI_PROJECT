@@ -33,7 +33,7 @@ if(isset($_POST['submit']))
 			if ($_POST['password'] == $_POST['confirmpassword'])
 			{
 				# code...
-				$sql1="INSERT INTO registration (name, email, username, password, gender, dateofbirth, usertype) VALUES ('".$_POST['name']."', '".$_POST['email']."', '".$_POST['username']."', '".$_POST['password']."', '".$_POST['gender']."', '".$_POST['date']."', '".$_POST['usertype']."')";
+				$sql1="INSERT INTO registration (id, name, password, email, usertype) VALUES ('".$_POST['id']."', '".$_POST['name']."', '".$_POST['password']."', '".$_POST['email']."', '".$_POST['userType']."')";
 				mysqli_query($conn,$sql1);
 				echo "done";
 			}
