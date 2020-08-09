@@ -6,7 +6,7 @@ if(isset($_POST['submit']))
 	$id = $_POST['id'];
 	$email = $_POST['email'];
 	$password = $_POST['password'];
-	$confirmPassword = $_POST['confirmPassword'];
+	$confirmPassword = $_POST['confirmpassword'];
 	$userType = $_POST['userType'];
 
 	if(empty($id) || empty($password) || empty($email) || empty($name) || empty($confirmPassword) || empty($userType))
@@ -23,41 +23,24 @@ if(isset($_POST['submit']))
 		else
 		{
 
-		$conn = mysqli_connect('127.0.0.1', 'root', '', 'foodDeliverManagementSystem');
-		$sql= 'select * from registration where username="'.$_POST['username'].'"';
-		$result = mysqli_query($conn,$sql);
-		$data = mysqli_fetch_assoc($result);
-		if (empty($data)) 
-		{
-			# code...
+			$conn = mysqli_connect('127.0.0.1', 'root', '', 'foodDeliverManagementSystem');
 			if ($_POST['password'] == $_POST['confirmpassword'])
 			{
 				# code...
 				$sql1="INSERT INTO registration (id, name, password, email, usertype) VALUES ('".$_POST['id']."', '".$_POST['name']."', '".$_POST['password']."', '".$_POST['email']."', '".$_POST['userType']."')";
 				mysqli_query($conn,$sql1);
 				echo "done";
+				header('location: login.html');
 			}
 			else
 			{
 				echo "Password doesn't match";
 			}
 			mysqli_close($conn);
-			}
-			else
-			{
-				echo "Username already exists";
-			}
-		}
-		else
-		{
-			header("location: registration.html");
-		}
-
-		header('location: login.html');
 		}
 	}
-
 }
+
 else
 {
 	//header("location: login.html");
