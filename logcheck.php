@@ -3,53 +3,42 @@
 
 	if(isset($_POST['submit'])){
 
-		$uname 		= $_POST['uname'];
+		$username 		= $_POST['uname'];
 		$password 	= $_POST['password'];
 
-		if(empty($uname) || empty($password)){
+		if(empty($username) || empty($password)){
 			echo "null submission";
 
 		}
-		else{
+		else
+		{
+			$conn = mysqli_connect('127.0.0.1', 'root', '', 'mini_database');
+			$sql = "select * from users where id='".$username."' and password='".$password."'";
+			$result = mysqli_query($conn, $sql);
+			$user 	= mysqli_fetch_assoc($result);
 			
-			$file = fopen('user.txt', 'r');
-			$data = fread($file, filesize('user.txt'));
-			//$user = explode('|', $data);
-			$users = explode('/r/n', $data);
-			//print_r($users);
-			$counter=0;
-			echo count($users);
-			while($counter<(count($users)-1))
-			{
-
-				$data = $users[$counter];
-				$user = explode('|', $data);
-				
-				echo $counter;
-				$counter=$counter+1;
-			}
-
-
-			/*while(!feof($file)){
-				$data = fgets($file);
-				$user = explode('|', $data);
-				echo $user[0].$user[3];
-			}*/
-
-			//print_r($user);
-			if(trim($user[0]) == $uname && trim($user[3]) == $password){
+			if(!empty($user)){
 				$_SESSION['status']  = "Ok";
-				$_SESSION['uname'] 	= $user[0];
-				$_SESSION['type'] 	= $user[4];
-				header('location: home.php');
+				$_SESSION['username']=$username;
+				echo $user['userType'];
+				if($user['userType']=="admin")
+				{
+					header('location: AdminHomepage.php');
 				}
 				else
 				{
-				echo "Invalid username/password";
+					header('location: UserHomepage.php');
 				}
+			}
+			else
+			{
+				echo "Null submission".'<a href="login.html"><u>Home</a>';
+			}
+			
 		}
 
-	}else{
+	}
+	else{
 		header("location: login.html");
 	}
 
